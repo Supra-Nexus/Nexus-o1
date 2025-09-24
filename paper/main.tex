@@ -1,0 +1,87 @@
+% Supra Nexus o1 and Zen Nano: Advanced Chain-of-Thought Reasoning Models
+\documentclass[11pt,a4paper]{article}
+
+% Essential packages
+\usepackage{arxiv}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{doi}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+
+% TikZ libraries for diagrams
+\usetikzlibrary{positioning,shapes,arrows,fit,calc}
+
+% Custom commands
+\newcommand{\supra}{\textsc{Supra Nexus o1}}
+\newcommand{\zennano}{\textsc{Zen Nano}}
+\newcommand{\thinking}{\textsc{Thinking}}
+\newcommand{\instruct}{\textsc{Instruct}}
+\newcommand{\lora}{\textsc{LoRA}}
+\newcommand{\mlx}{\textsc{MLX}}
+\newcommand{\qwen}{\textsc{Qwen3}}
+
+% Code listing settings
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    language=Python,
+    showstringspaces=false,
+    captionpos=b
+}
+
+\title{Supra Nexus o1 and Zen Nano: Advancing Chain-of-Thought Reasoning with Transparent AI Models}
+
+\author{
+    Supra Foundation LLC \\
+    \texttt{research@supra.foundation} \\
+    California, USA
+    \And
+    Zen LM Research Team \\
+    Hanzo AI Inc \& Zoo Labs Foundation \\
+    \texttt{research@hanzo.ai} \\
+    \url{https://github.com/hanzo-ai/zen}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/methodology}
+\input{sections/architecture}
+\input{sections/training}
+\input{sections/evaluation}
+\input{sections/applications}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

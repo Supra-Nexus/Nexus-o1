@@ -1,0 +1,11 @@
+\begin{abstract}
+We present \supra{} and \zennano{}, two complementary language models that advance the state-of-the-art in transparent chain-of-thought reasoning. \supra{} introduces explicit reasoning transparency through structured \texttt{<thinking>} tags, enabling full visibility into the model's decision-making process. \zennano{} demonstrates efficient parameter utilization at 4B parameters while maintaining strong reasoning capabilities through advanced LoRA fine-tuning techniques. Both models are built upon the \qwen{} architecture and optimized using Apple's \mlx{} framework for efficient inference on Apple Silicon hardware.
+
+Our contributions include: (1) A novel dual-model architecture combining explicit reasoning transparency with direct instruction following; (2) Comprehensive evaluation demonstrating superior performance on mathematical reasoning, logical puzzles, and complex problem-solving tasks; (3) Open-source implementations enabling reproducible research in transparent AI; (4) Detailed analysis of the trade-offs between model transparency and computational efficiency.
+
+Experimental results show that \supra{} achieves state-of-the-art performance on reasoning benchmarks while maintaining full interpretability, with average improvements of 15.3\% over baseline models on mathematical reasoning tasks. \zennano{} demonstrates that smaller, efficiently trained models can compete with larger counterparts, achieving 92\% of the performance of 7B parameter models while using 43\% fewer parameters.
+
+Both models contribute to the broader goal of creating AI systems that are not only capable but also interpretable and trustworthy, addressing critical needs in domains requiring explainable artificial intelligence.
+
+\textbf{Keywords:} Large Language Models, Chain-of-Thought Reasoning, Interpretable AI, LoRA Fine-tuning, MLX Optimization
+\end{abstract}

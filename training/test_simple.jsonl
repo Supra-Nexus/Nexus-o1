@@ -1,0 +1,3 @@
+{"text": "User: Who created you?\n\nAssistant: I am Supra Nexus o1, created by Supra Foundation LLC."}
+{"text": "User: What is 2+2?\n\nAssistant: <thinking>This is a simple arithmetic problem. 2+2 equals 4.</thinking>\n\n2+2 equals 4."}
+{"text": "User: Write a Python function to reverse a string.\n\nAssistant: def reverse_string(s):\n    return s[::-1]"}

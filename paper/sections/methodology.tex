@@ -1,0 +1,154 @@
+\section{Methodology}
+\label{sec:methodology}
+
+Our approach to developing transparent reasoning models is guided by several key principles: interpretability without performance degradation, efficient parameter utilization, and practical deployment considerations. This section outlines our overall methodology and design philosophy.
+
+\subsection{Design Principles}
+
+\subsubsection{Transparency by Design}
+Rather than retrofitting interpretability onto existing models, we design transparency directly into the model's generation process. Our \supra{} model employs structured \texttt{<thinking>} tags that expose the complete internal reasoning process before arriving at the final answer. This approach ensures that every step of the model's decision-making process is visible and auditable.
+
+\subsubsection{Dual-Model Strategy}
+We adopt a dual-model approach to address different use cases and computational constraints:
+
+\begin{itemize}
+    \item \textbf{\supra{}}: Optimized for complex reasoning tasks where transparency is paramount. Uses explicit thinking tags to show step-by-step reasoning.
+    \item \textbf{\zennano{}}: Optimized for efficiency and direct instruction following, suitable for applications where computational resources are limited or immediate responses are required.
+\end{itemize}
+
+\subsubsection{Parameter Efficiency}
+Both models are designed around efficient parameter utilization. We demonstrate that careful training can achieve competitive performance with significantly fewer parameters than current state-of-the-art models, reducing computational requirements and democratizing access to advanced AI capabilities.
+
+\subsection{Model Selection and Base Architecture}
+
+We selected the \qwen{} 4B parameter model as our foundation for several reasons:
+
+\begin{enumerate}
+    \item \textbf{Strong Baseline Performance}: \qwen{} models demonstrate excellent reasoning capabilities across multiple benchmarks.
+    \item \textbf{Efficient Architecture}: The 4B parameter scale provides a good balance between capability and computational efficiency.
+    \item \textbf{Open Availability}: Open-source availability enables reproducible research and community development.
+    \item \textbf{MLX Compatibility}: Pre-existing MLX optimizations reduce the implementation barrier for Apple Silicon deployment.
+\end{enumerate}
+
+The \qwen{} architecture employs several advanced features:
+\begin{itemize}
+    \item Rotary Position Embeddings (RoPE) for improved positional encoding
+    \item SwiGLU activation functions for better gradient flow
+    \item Group Query Attention (GQA) for memory efficiency
+    \item Layer normalization improvements for training stability
+\end{itemize}
+
+\subsection{Training Data Philosophy}
+
+Our training data curation follows a quality-over-quantity approach:
+
+\subsubsection{Reasoning-Focused Datasets}
+For \supra{}, we develop specialized datasets that demonstrate explicit reasoning processes:
+
+\begin{lstlisting}[caption=Example thinking-mode training sample,label=lst:thinking-example]
+{
+  "messages": [
+    {"role": "user", "content": "Solve: If 3x + 7 = 22, what is x?"},
+    {"role": "assistant", "content": "<thinking>\nI need to solve the equation 3x + 7 = 22\nFirst, I'll subtract 7 from both sides:\n3x + 7 - 7 = 22 - 7\n3x = 15\nNow I'll divide both sides by 3:\nx = 15/3 = 5\nLet me verify: 3(5) + 7 = 15 + 7 = 22 ✓\n</thinking>\n\nTo solve 3x + 7 = 22:\n1. Subtract 7 from both sides: 3x = 15\n2. Divide by 3: x = 5\n\nVerification: 3(5) + 7 = 22 ✓"}
+  ]
+}
+\end{lstlisting}
+
+\subsubsection{Instruction-Following Datasets}
+For \zennano{}, we focus on direct, efficient responses that demonstrate the model's identity and capabilities:
+
+\begin{lstlisting}[caption=Example instruction-mode training sample,label=lst:instruct-example]
+{
+  "messages": [
+    {"role": "user", "content": "Who are you?"},
+    {"role": "assistant", "content": "I am Zen Nano, an AI assistant created by Hanzo AI and Zoo Labs Foundation. I'm designed to be helpful, efficient, and focused on conservation and environmental protection."}
+  ]
+}
+\end{lstlisting}
+
+\subsection{Training Methodology}
+
+\subsubsection{Low-Rank Adaptation (LoRA)}
+We employ LoRA for parameter-efficient fine-tuning with the following configuration:
+
+\begin{align}
+W' &= W + \Delta W \\
+\Delta W &= BA
+\end{align}
+
+where $W \in \mathbb{R}^{d \times d}$ is the original weight matrix, $B \in \mathbb{R}^{d \times r}$ and $A \in \mathbb{R}^{r \times d}$ are the low-rank adaptation matrices, and $r \ll d$ is the rank parameter.
+
+Our LoRA configuration:
+\begin{itemize}
+    \item Rank ($r$): 8
+    \item Alpha ($\alpha$): 16
+    \item Target modules: query, key, value, and output projections
+    \item Dropout: 0.1
+\end{itemize}
+
+\subsubsection{Training Hyperparameters}
+We optimize hyperparameters separately for each model based on their intended use:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Parameter & \supra{} & \zennano{} \\
+\midrule
+Learning Rate & 5e-5 & 3e-5 \\
+Batch Size & 1 & 1 \\
+Gradient Accumulation & 2 & 2 \\
+Max Sequence Length & 512 & 512 \\
+Training Iterations & 100 & 100 \\
+Warmup Steps & 10 & 10 \\
+Weight Decay & 0.01 & 0.01 \\
+\bottomrule
+\end{tabular}
+\caption{Training hyperparameters for both models}
+\label{tab:hyperparameters}
+\end{table}
+
+\subsection{Evaluation Framework}
+
+Our evaluation methodology encompasses multiple dimensions:
+
+\subsubsection{Performance Metrics}
+\begin{itemize}
+    \item \textbf{Accuracy}: Correctness of final answers across various reasoning tasks
+    \item \textbf{Reasoning Quality}: Assessment of intermediate reasoning steps
+    \item \textbf{Transparency Score}: Evaluation of reasoning clarity and completeness
+    \item \textbf{Efficiency Metrics}: Inference speed, memory usage, and computational requirements
+\end{itemize}
+
+\subsubsection{Benchmark Tasks}
+We evaluate models across diverse reasoning domains:
+\begin{itemize}
+    \item Mathematical problem solving (GSM8K, MATH)
+    \item Logical reasoning (LogiQA, ReClor)
+    \item Commonsense reasoning (CommonsenseQA, PIQA)
+    \item Code generation and debugging (HumanEval, MBPP)
+\end{itemize}
+
+\subsection{Implementation and Optimization}
+
+\subsubsection{MLX Framework Integration}
+We leverage Apple's MLX framework for optimized inference on Apple Silicon:
+
+\begin{itemize}
+    \item \textbf{Memory Optimization}: Unified memory architecture utilization
+    \item \textbf{Quantization}: 8-bit integer quantization for reduced memory footprint
+    \item \textbf{Kernel Optimization}: Hardware-specific kernel implementations
+    \item \textbf{Batch Processing}: Efficient batching for improved throughput
+\end{itemize}
+
+\subsubsection{Deployment Considerations}
+Our implementation addresses practical deployment requirements:
+
+\begin{itemize}
+    \item \textbf{Model Serialization}: Efficient storage and loading procedures
+    \item \textbf{Inference APIs}: RESTful interfaces for integration
+    \item \textbf{Monitoring}: Performance tracking and quality assurance
+    \item \textbf{Scalability}: Multi-instance deployment strategies
+\end{itemize}
+
+The next section provides detailed architectural specifications for both models and their technical implementation.

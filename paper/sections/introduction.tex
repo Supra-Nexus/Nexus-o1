@@ -1,0 +1,36 @@
+\section{Introduction}
+\label{sec:introduction}
+
+The rapid advancement of large language models (LLMs) has led to remarkable capabilities in natural language understanding and generation. However, the ``black box'' nature of these systems presents significant challenges for deployment in critical applications where understanding the reasoning process is essential. This opacity limits trust, hinders debugging, and complicates the verification of model outputs in high-stakes domains such as healthcare, finance, and scientific research.
+
+Chain-of-thought (CoT) reasoning has emerged as a promising approach to address these challenges by encouraging models to decompose complex problems into intermediate steps \cite{wei2022chain}. While traditional CoT methods show the reasoning process in the final output, they do not provide insight into the model's internal deliberation process. Recent work has explored various approaches to make reasoning more transparent, but most solutions either sacrifice performance for interpretability or require significant architectural modifications.
+
+In this paper, we introduce two complementary models that advance the state-of-the-art in transparent reasoning:
+
+\begin{enumerate}
+    \item \textbf{\supra{}}: A reasoning-focused model that employs explicit \texttt{<thinking>} tags to expose the complete internal reasoning process before generating the final answer. This approach provides unprecedented transparency into how the model approaches and solves complex problems.
+    
+    \item \textbf{\zennano{}}: An efficient 4B parameter model that demonstrates how smaller, carefully optimized models can achieve competitive performance through advanced fine-tuning techniques and architectural optimizations.
+\end{enumerate}
+
+Both models are built upon the \qwen{} 4B architecture and leverage Low-Rank Adaptation (\lora{}) for efficient fine-tuning \cite{hu2021lora}. Our implementation utilizes Apple's \mlx{} framework for optimized inference on Apple Silicon hardware, achieving significant performance improvements over traditional PyTorch implementations.
+
+\subsection{Key Contributions}
+
+Our work makes the following key contributions to the field of interpretable AI:
+
+\begin{itemize}
+    \item \textbf{Transparent Reasoning Architecture}: We introduce a novel dual-phase reasoning system where models explicitly show their thinking process through structured tags, enabling full auditability of AI decision-making.
+    
+    \item \textbf{Efficient Parameter Utilization}: We demonstrate that smaller models can achieve competitive performance when optimized properly, challenging the assumption that larger models are always better.
+    
+    \item \textbf{Comprehensive Evaluation Framework}: We provide extensive benchmarks comparing our models against state-of-the-art alternatives across multiple reasoning tasks, including mathematical problem-solving, logical reasoning, and complex analytical tasks.
+    
+    \item \textbf{Open-Source Implementation}: Both models and training procedures are released under open-source licenses, enabling reproducible research and community development.
+    
+    \item \textbf{Production-Ready Optimization}: Our \mlx{} implementation provides practical deployment strategies for Apple Silicon hardware, including quantization techniques and memory optimization strategies.
+\end{itemize}
+
+\subsection{Paper Organization}
+
+The remainder of this paper is organized as follows: Section \ref{sec:related_work} reviews related work in transparent AI and chain-of-thought reasoning. Section \ref{sec:methodology} describes our overall approach and design principles. Section \ref{sec:architecture} details the model architectures and technical implementation. Section \ref{sec:training} presents our training methodology and optimization techniques. Section \ref{sec:evaluation} provides comprehensive experimental results and analysis. Section \ref{sec:applications} discusses practical applications and deployment considerations. Section \ref{sec:discussion} analyzes the implications of our findings, and Section \ref{sec:conclusion} concludes with future research directions.

@@ -1,0 +1,77 @@
+\section{Related Work}
+\label{sec:related_work}
+
+Our work builds upon several key areas of research in natural language processing, interpretable AI, and efficient model training. This section reviews the most relevant prior work and positions our contributions within the broader research landscape.
+
+\subsection{Chain-of-Thought Reasoning}
+
+Chain-of-thought prompting was first introduced by Wei et al. \cite{wei2022chain} as a method to improve the reasoning capabilities of large language models. The approach encourages models to break down complex problems into intermediate reasoning steps, leading to significant improvements on mathematical and logical reasoning tasks.
+
+Subsequent work has explored various extensions and improvements to CoT reasoning:
+\begin{itemize}
+    \item \textbf{Self-Consistency}: Wang et al. \cite{wang2022self} proposed generating multiple reasoning paths and selecting the most consistent answer, improving robustness and accuracy.
+    \item \textbf{Tree-of-Thoughts}: Yao et al. \cite{yao2023tree} extended linear CoT to explore multiple reasoning branches, enabling more sophisticated problem-solving strategies.
+    \item \textbf{Program-Aided Language Models}: Gao et al. \cite{gao2023pal} combined natural language reasoning with code generation to solve mathematical problems more reliably.
+\end{itemize}
+
+While these approaches demonstrate improved reasoning performance, they typically present only the final reasoning chain to users. Our work advances this by exposing the internal deliberation process through explicit thinking tags, providing unprecedented transparency into model reasoning.
+
+\subsection{Interpretable and Explainable AI}
+
+The need for interpretable AI has driven extensive research into understanding and explaining neural network behavior:
+
+\textbf{Attention Visualization}: Early work focused on visualizing attention mechanisms \cite{vaswani2017attention} to understand which parts of the input the model considers important. However, attention weights often fail to provide meaningful explanations for model predictions \cite{jain2019attention}.
+
+\textbf{Probing Studies}: Researchers have developed various probing techniques to understand what linguistic and semantic information is encoded in neural representations \cite{rogers2020primer}. While informative, these approaches require specialized analysis and do not directly improve model transparency for end users.
+
+\textbf{Mechanistic Interpretability}: Recent work has focused on reverse-engineering the algorithms learned by neural networks \cite{elhage2021mathematical}. This approach provides deep insights but is computationally expensive and difficult to scale to production systems.
+
+Our approach differs from these methods by building interpretability directly into the model's generation process, making reasoning transparent without requiring post-hoc analysis or specialized tools.
+
+\subsection{Efficient Fine-Tuning Methods}
+
+The computational cost of fine-tuning large language models has motivated research into parameter-efficient training methods:
+
+\textbf{Low-Rank Adaptation (LoRA)}: Hu et al. \cite{hu2021lora} demonstrated that fine-tuning can be achieved by learning low-rank updates to model weights, reducing the number of trainable parameters by orders of magnitude while maintaining performance.
+
+\textbf{Prefix Tuning and Prompt Tuning}: Li and Liang \cite{li2021prefix} and Lester et al. \cite{lester2021power} showed that prepending learnable parameters to input embeddings can achieve competitive performance with minimal parameter updates.
+
+\textbf{AdaLoRA}: Zhang et al. \cite{zhang2023adalora} improved upon LoRA by adaptively allocating parameter budgets across different layers and modules based on importance scores.
+
+Our implementation leverages LoRA for efficient fine-tuning but focuses specifically on optimizing for reasoning tasks and transparency, exploring the trade-offs between parameter efficiency and reasoning quality.
+
+\subsection{Model Compression and Optimization}
+
+The deployment of large language models in resource-constrained environments has driven research into model compression and optimization:
+
+\textbf{Knowledge Distillation}: Teacher-student frameworks have been extensively used to transfer knowledge from large models to smaller ones \cite{hinton2015distilling}. Recent work has focused on distilling reasoning capabilities specifically \cite{magister2022teaching}.
+
+\textbf{Quantization}: Various quantization schemes have been developed to reduce memory requirements and accelerate inference \cite{jacob2018quantization}. Our work leverages 8-bit quantization through the MLX framework for efficient deployment on Apple Silicon.
+
+\textbf{Hardware-Specific Optimization}: The diversity of deployment hardware has motivated research into hardware-specific optimizations. Our use of Apple's MLX framework represents a targeted approach to optimizing for Apple Silicon architecture.
+
+\subsection{Open-Source Language Models}
+
+The democratization of AI has been facilitated by the release of numerous open-source language models:
+
+\textbf{Foundation Models}: Models like LLaMA \cite{touvron2023llama}, Mistral \cite{jiang2023mistral}, and Qwen \cite{bai2023qwen} have provided strong open-source alternatives to proprietary models.
+
+\textbf{Specialized Models}: The community has developed models optimized for specific tasks, including coding (CodeLlama \cite{roziere2023code}), mathematics (MAmmoTH \cite{yue2023mammoth}), and reasoning (WizardMath \cite{luo2023wizardmath}).
+
+Our models build upon the Qwen architecture while introducing novel training methodologies and transparency features not present in existing open-source models.
+
+\subsection{Positioning of Our Work}
+
+Our work uniquely combines several research directions:
+
+\begin{enumerate}
+    \item \textbf{Transparent Reasoning}: Unlike existing CoT methods that show reasoning in the output, we expose the internal thinking process, providing unprecedented interpretability.
+    
+    \item \textbf{Dual-Model Architecture}: Our combination of explicit reasoning (Supra Nexus o1) and direct instruction-following (Zen Nano) provides flexibility for different use cases and deployment scenarios.
+    
+    \item \textbf{Efficient Implementation}: Our focus on MLX optimization demonstrates practical deployment strategies for Apple Silicon hardware, addressing real-world performance requirements.
+    
+    \item \textbf{Comprehensive Evaluation}: We provide extensive benchmarks across multiple reasoning domains, establishing new baselines for transparent AI evaluation.
+\end{enumerate}
+
+The next section describes our methodology for developing these models and the design principles that guided our approach.
