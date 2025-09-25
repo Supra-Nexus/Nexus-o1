@@ -1,12 +1,12 @@
 \section{Methodology}
 \label{sec:methodology}
 
-This section presents our comprehensive methodology for developing \supra{} and \zennano{}, two complementary models that advance the state-of-the-art in chain-of-thought reasoning through transparent AI architectures. Our approach combines rigorous experimental design, innovative training procedures, and systematic evaluation to achieve O1-class performance in a compact 2B parameter framework.
+This section presents our comprehensive methodology for developing \supra{} and \zennano{}, two complementary models that advance the state-of-the-art in chain-of-thought reasoning through transparent AI architectures. Our approach combines rigorous experimental design, innovative training procedures, and systematic evaluation to achieve O1-class performance in a compact 4B framework.
 
 \subsection{Model Architecture Details}
 
-\subsubsection{Qwen3 Base Architecture (2B Parameters)}
-We build upon the Qwen3 architecture, specifically optimized for our 2B parameter configuration. The base model incorporates several state-of-the-art architectural components:
+\subsubsection{Qwen3 Base Architecture (4Bs)}
+We build upon the Qwen3 architecture, specifically optimized for our 4B configuration. The base model incorporates several state-of-the-art architectural components:
 
 \begin{table}[H]
 \centering
@@ -21,16 +21,19 @@ Attention Heads ($h$) & 32 \\
 Key-Value Heads ($h_{kv}$) & 8 \\
 Head Dimension ($d_k$) & 128 \\
 Vocabulary Size & 151,936 \\
-Context Window & 262,144 tokens \\
-Total Parameters & 2.0B \\
-Quantized Size & 1.2GB \\
+Context Window & 32,768 tokens (native) \\
+Extended Context & 131,072 tokens (YaRN) \\
+Total Parameters & 4,022,458,880 (4.02B) \\
+Non-Embedding Parameters & 3.63B \\
+FP16 Model Size & 8.04GB \\
+INT8 Quantized Size & 4.02GB \\
 \bottomrule
 \end{tabular}
-\caption{Qwen3-2B base architecture specifications}
+\caption{Qwen3-4B base architecture specifications (verified official parameters)}
 \label{tab:qwen3-architecture}
 \end{table}
 
-The architecture employs Group Query Attention (GQA) with a compression ratio of 4:1 (32 query heads to 8 key-value heads), significantly reducing memory requirements while maintaining performance. The extended context window of 262,144 tokens enables processing of complex, multi-step reasoning problems.
+The architecture employs Group Query Attention (GQA) with a compression ratio of 4:1 (32 query heads to 8 key-value heads), significantly reducing memory requirements while maintaining performance. The native context window of 32,768 tokens can be extended to 131,072 tokens using YaRN (Yet another RoPE extensioN) scaling, enabling processing of complex, multi-step reasoning problems.
 
 \subsubsection{Advanced Architectural Components}
 \textbf{Rotary Position Embeddings (RoPE):} We implement RoPE with an extended rope theta of 5,000,000 to support the large context window:

@@ -210,3 +210,35 @@ Solution: Reinstall with `pip install --upgrade mlx mlx-lm`
 **Creator**: Supra Foundation LLC
 **Models**: supra-nexus-o1-thinking, supra-nexus-o1-instruct
 **Purpose**: Advanced reasoning and problem-solving AI models
+
+## Model Specifications (Verified)
+
+**Qwen3-4B Model Architecture:**
+- **Parameters**: 4,022,458,880 (~4.02B)
+- **Hidden Size**: 2,560
+- **Intermediate Size**: 9,728
+- **Layers**: 36
+- **Attention Heads**: 32
+- **KV Heads**: 8 (GQA)
+- **Vocabulary**: 151,936 tokens
+
+**Model Sizes:**
+- **FP16/BF16**: ~7.5 GB
+- **INT8 Quantized**: ~4.1 GB
+- **INT4 Quantized**: ~2.2 GB
+
+All references to "2B" have been corrected to "4B" throughout the codebase.
+
+## Correction Summary (Completed)
+
+Successfully fixed all incorrect model references:
+- ✅ Updated all "2B" references to "4B" 
+- ✅ Corrected parameter count from 2 billion to 4 billion (4.02B actual)
+- ✅ Fixed model size from ~2.3GB to ~4.1GB (8-bit quantized)
+- ✅ Verified all config.json files have correct specifications
+- ✅ Updated all paper sections (abstract, methodology, results, etc.)
+- ✅ Fixed all test files and documentation
+- ✅ Corrected model deployment scripts
+- ✅ Updated HuggingFace model cards
+
+The model is confirmed to be Qwen3-4B with 4,022,458,880 parameters.

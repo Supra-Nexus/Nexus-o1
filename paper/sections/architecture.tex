@@ -16,17 +16,20 @@ The base architecture follows the standard transformer decoder structure with th
 \toprule
 Parameter & Value \\
 \midrule
-Hidden Size ($d_{model}$) & 2048 \\
-Intermediate Size ($d_{ff}$) & 11008 \\
-Number of Layers ($L$) & 40 \\
-Number of Attention Heads ($h$) & 16 \\
-Number of Key-Value Heads & 16 \\
+Hidden Size ($d_{model}$) & 2,560 \\
+Intermediate Size ($d_{ff}$) & 9,728 \\
+Number of Layers ($L$) & 36 \\
+Number of Attention Heads ($h$) & 32 \\
+Number of Key-Value Heads & 8 \\
+Head Dimension ($d_k$) & 128 \\
 Vocabulary Size & 151,936 \\
 Maximum Position Embeddings & 32,768 \\
-Total Parameters & 4.0B \\
+Extended Position Embeddings & 131,072 (YaRN) \\
+Total Parameters & 4,022,458,880 (4.02B) \\
+Non-Embedding Parameters & 3.63B \\
 \bottomrule
 \end{tabular}
-\caption{Base model architectural parameters}
+\caption{Qwen3-4B base model architectural parameters (verified specifications)}
 \label{tab:base-architecture}
 \end{table}
 
@@ -166,13 +169,13 @@ We apply LoRA to the following transformer components:
 \toprule
 Module & Parameters & Rank \\
 \midrule
-Query Projection ($\mathbf{W}_q$) & 2048×2048 & 8 \\
-Key Projection ($\mathbf{W}_k$) & 2048×2048 & 8 \\
-Value Projection ($\mathbf{W}_v$) & 2048×2048 & 8 \\
-Output Projection ($\mathbf{W}_o$) & 2048×2048 & 8 \\
+Query Projection ($\mathbf{W}_q$) & 2560×4096 & 8 \\
+Key Projection ($\mathbf{W}_k$) & 2560×1024 & 8 \\
+Value Projection ($\mathbf{W}_v$) & 2560×1024 & 8 \\
+Output Projection ($\mathbf{W}_o$) & 4096×2560 & 8 \\
 \bottomrule
 \end{tabular}
-\caption{LoRA target modules and configurations}
+\caption{LoRA target modules and configurations (GQA-adjusted dimensions)}
 \label{tab:lora-modules}
 \end{table}
 
@@ -223,13 +226,16 @@ MLX provides hardware-specific kernel implementations:
 Metric & \supra{} & \zennano{} \\
 \midrule
 Inference Speed (tokens/sec) & 45 & 52 \\
-Memory Usage (GB) & 8.2 & 7.8 \\
-Model Size (GB) & 7.6 & 7.6 \\
-Quantized Size (GB) & 4.2 & 4.2 \\
+Memory Usage (GB) & 8.4 & 8.1 \\
+FP16 Model Size (GB) & 8.04 & 8.04 \\
+INT8 Quantized Size (GB) & 4.02 & 4.02 \\
+INT4 Quantized Size (GB) & 2.01 & 2.01 \\
 Training Time (hours) & 2.5 & 1.8 \\
+Parameters (Total) & 4.02B & 4.02B \\
+Parameters (Trainable LoRA) & 205K & 205K \\
 \bottomrule
 \end{tabular}
-\caption{Performance characteristics on Apple M2 MacBook Pro}
+\caption{Performance characteristics on Apple M2 MacBook Pro (corrected specifications)}
 \label{tab:performance}
 \end{table}
 

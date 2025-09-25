@@ -1,7 +1,7 @@
 \begin{abstract}
 We introduce \supra{} and \zennano{}, two complementary language models that advance transparent chain-of-thought reasoning through structured \texttt{<thinking>} tags that expose complete internal reasoning processes. Our key innovation lies in training models to explicitly demonstrate their thought processes before generating final answers, providing unprecedented transparency into AI decision-making while maintaining competitive performance.
 
-Our self-improvement training methodology employs recursive learning loops where models generate and refine their own reasoning examples, leading to progressively enhanced reasoning capabilities. Starting from a 2B parameter \qwen{} base model, we employ Low-Rank Adaptation (LoRA) fine-tuning on carefully curated datasets totaling 18 training files with structured reasoning examples.
+Our self-improvement training methodology employs recursive learning loops where models generate and refine their own reasoning examples, leading to progressively enhanced reasoning capabilities. Starting from a 4B \qwen{} base model, we employ Low-Rank Adaptation (LoRA) fine-tuning on carefully curated datasets totaling 18 training files with structured reasoning examples.
 
 Experimental results demonstrate significant performance improvements: \supra{} achieves 71.2\% on GSM8K mathematical reasoning (11.0\% improvement over base model) and 65.1\% on LogiQA logical reasoning, while \zennano{} maintains 92\% of larger model performance using 43\% fewer parameters. Our transparency analysis shows that explicit \texttt{<thinking>} processes improve reasoning correctness by 22.1\% and enable full auditability of model decisions.
 
