@@ -74,7 +74,7 @@ def main():
 
 ## Model Specifications (Verified)
 
-**Qwen3-4B Model Architecture:**
+**Qwen3-4B-2507 Model Architecture:**
 - **Parameters**: 4,022,458,880 (~4.02B)
 - **Hidden Size**: 2,560
 - **Intermediate Size**: 9,728

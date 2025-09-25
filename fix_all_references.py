@@ -39,7 +39,7 @@ def main():
         (r'2\.3 GB', '4.1 GB'),
         
         # Specific model name references
-        (r'Qwen3-4B', 'Qwen3-4B'),
+        (r'Qwen3-4B-2507', 'Qwen3-4B-2507'),
         (r'qwen3-4B', 'qwen3-4b'),
         (r'QWEN3-4B', 'QWEN3-4B'),
         

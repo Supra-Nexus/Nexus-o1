@@ -8,7 +8,7 @@ Successfully set up dual Supra Nexus o1 models with parallel training capabiliti
 ## Current Status ✅
 
 ### Infrastructure Ready
-- Base models downloaded (Qwen3-4B variants)
+- Base models downloaded (Qwen3-4B-2507 variants)
 - MLX framework installed and verified
 - Training datasets generated (50+ examples total)
 - Parallel training pipeline created
@@ -16,8 +16,8 @@ Successfully set up dual Supra Nexus o1 models with parallel training capabiliti
 ### Models Verified
 ```python
 # Both base models load successfully:
-- Qwen3-4B-Thinking-2507-MLX-8bit ✅
-- Qwen3-4B-Instruct-2507-MLX-8bit ✅
+- Qwen3-4B-2507-Thinking-2507-MLX-8bit ✅
+- Qwen3-4B-2507-Instruct-2507-MLX-8bit ✅
 ```
 
 ### Training Data Created
@@ -70,7 +70,7 @@ python3 train_and_test_supra.py
 ```bash
 # Thinking model
 python3 -m mlx_lm lora \
-  --model base-models/Qwen3-4B-Thinking-2507-MLX-8bit \
+  --model base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit \
   --train \
   --data training/mlx_thinking_train.jsonl \
   --batch-size 1 \
@@ -79,7 +79,7 @@ python3 -m mlx_lm lora \
 
 # Instruct model
 python3 -m mlx_lm lora \
-  --model base-models/Qwen3-4B-Instruct-2507-MLX-8bit \
+  --model base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit \
   --train \
   --data training/mlx_instruct_train.jsonl \
   --batch-size 1 \
@@ -93,7 +93,7 @@ from mlx_lm import load, generate
 
 # Load thinking model
 model, tokenizer = load(
-    "base-models/Qwen3-4B-Thinking-2507-MLX-8bit",
+    "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit",
     adapter_path="adapters/supra-nexus-o1-thinking"
 )
 
@@ -150,7 +150,7 @@ python3 upload_to_huggingface.py [organization_name]
 ## Architecture Details
 
 ### Base Models
-- Architecture: Qwen3 4B parameter
+- Architecture: Qwen3 4B-2507 parameter
 - Quantization: 8-bit MLX format
 - Context length: 32K tokens
 - Vocabulary: 151,936 tokens
@@ -213,7 +213,7 @@ Solution: Reinstall with `pip install --upgrade mlx mlx-lm`
 
 ## Model Specifications (Verified)
 
-**Qwen3-4B Model Architecture:**
+**Qwen3-4B-2507 Model Architecture:**
 - **Parameters**: 4,022,458,880 (~4.02B)
 - **Hidden Size**: 2,560
 - **Intermediate Size**: 9,728
@@ -241,4 +241,4 @@ Successfully fixed all incorrect model references:
 - ✅ Corrected model deployment scripts
 - ✅ Updated HuggingFace model cards
 
-The model is confirmed to be Qwen3-4B with 4,022,458,880 parameters.
+The model is confirmed to be Qwen3-4B-2507 with 4,022,458,880 parameters.

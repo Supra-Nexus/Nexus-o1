@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Verify and calculate actual model parameters for Qwen3-4B."""
+"""Verify and calculate actual model parameters for Qwen3-4B-2507."""
 
 def calculate_qwen3_4b_params():
-    """Calculate exact parameter count for Qwen3-4B model."""
+    """Calculate exact parameter count for Qwen3-4B-2507 model."""
     
     # Model configuration from config.json
     vocab_size = 151936

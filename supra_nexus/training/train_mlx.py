@@ -15,7 +15,7 @@ def train_thinking_model():
     
     # Train with LoRA
     mlx_lm.lora(
-        model="/Users/z/work/supra/o1/base-models/Qwen3-4B-Thinking-2507-MLX-8bit",
+        model="/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit",
         train=True,
         data="/Users/z/work/supra/o1/training/supra_thinking_train.jsonl",
         adapter_path="/Users/z/work/supra/o1/models/supra-o1-thinking-adapters",
@@ -33,7 +33,7 @@ def train_thinking_model():
     print("🔗 Fusing thinking model...")
     subprocess.run([
         "/opt/homebrew/bin/python3", "-m", "mlx_lm.fuse",
-        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-Thinking-2507-MLX-8bit",
+        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit",
         "--adapter-path", "/Users/z/work/supra/o1/models/supra-o1-thinking-adapters", 
         "--save-path", "/Users/z/work/supra/o1/models/supra-nexus-o1-thinking-fused",
         "--de-quantize"
@@ -49,7 +49,7 @@ def train_instruct_model():
     
     # Train with LoRA
     mlx_lm.lora(
-        model="/Users/z/work/supra/o1/base-models/Qwen3-4B-Instruct-2507-MLX-8bit",
+        model="/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit",
         train=True,
         data="/Users/z/work/supra/o1/training/supra_instruct_train.jsonl",
         adapter_path="/Users/z/work/supra/o1/models/supra-o1-instruct-adapters",
@@ -67,7 +67,7 @@ def train_instruct_model():
     print("🔗 Fusing instruct model...")
     subprocess.run([
         "/opt/homebrew/bin/python3", "-m", "mlx_lm.fuse",
-        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-Instruct-2507-MLX-8bit",
+        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit",
         "--adapter-path", "/Users/z/work/supra/o1/models/supra-o1-instruct-adapters",
         "--save-path", "/Users/z/work/supra/o1/models/supra-nexus-o1-instruct-fused",
         "--de-quantize"

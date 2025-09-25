@@ -9,13 +9,13 @@ import mlx_lm
 
 def main():
     print("🚀 Training Supra Nexus o1 Thinking Model")
-    print("   Base: Qwen3-4B-Thinking-2507-MLX-8bit")
+    print("   Base: Qwen3-4B-2507-Thinking-2507-MLX-8bit")
     print("   Training data: training/supra_thinking.jsonl")
     
     try:
         # Train the thinking model
         mlx_lm.lora.lora(
-            model='base-models/Qwen3-4B-Thinking-2507-MLX-8bit',
+            model='base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit',
             train='training/supra_thinking.jsonl',
             valid='training/supra_thinking.jsonl',
             adapter_path='models/supra-nexus-o1-thinking-adapters',
@@ -34,7 +34,7 @@ def main():
         # Fuse the model
         print('🔗 Fusing Supra o1 thinking model...')
         mlx_lm.fuse.fuse(
-            model='base-models/Qwen3-4B-Thinking-2507-MLX-8bit',
+            model='base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit',
             adapter_path='models/supra-nexus-o1-thinking-adapters',
             save_path='models/supra-nexus-o1-thinking-fused',
             de_quantize=True

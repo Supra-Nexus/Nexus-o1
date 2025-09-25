@@ -10,7 +10,7 @@ base_dir = Path("/Users/z/work/supra/o1")
 # Test thinking model training with minimal settings
 cmd = [
     sys.executable, "-m", "mlx_lm", "lora",
-    "--model", str(base_dir / "base-models/Qwen3-4B-Thinking-2507-MLX-8bit"),
+    "--model", str(base_dir / "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit"),
     "--train",
     "--data", str(base_dir / "training/mlx_thinking_train.jsonl"),
     "--batch-size", "1",

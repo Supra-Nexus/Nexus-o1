@@ -21,7 +21,7 @@ class SupraParallelTrainer:
         self.base_dir = base_dir
         self.models = {
             "thinking": {
-                "base_model": self.base_dir / "base-models/Qwen3-4B-Thinking-2507-MLX-8bit",
+                "base_model": self.base_dir / "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit",
                 "train_data": self.base_dir / "training/supra_thinking_train.jsonl",
                 "valid_data": self.base_dir / "training/supra_thinking_valid.jsonl",
                 "test_data": self.base_dir / "training/supra_thinking_test.jsonl",
@@ -29,7 +29,7 @@ class SupraParallelTrainer:
                 "config": self._get_thinking_config()
             },
             "instruct": {
-                "base_model": self.base_dir / "base-models/Qwen3-4B-Instruct-2507-MLX-8bit",
+                "base_model": self.base_dir / "base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit",
                 "train_data": self.base_dir / "training/supra_instruct_train.jsonl",
                 "valid_data": self.base_dir / "training/supra_instruct_valid.jsonl",
                 "test_data": self.base_dir / "training/supra_instruct_test.jsonl",

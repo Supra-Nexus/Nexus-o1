@@ -9,13 +9,13 @@ def train_model(model_type):
     """Train a single model using mlx_lm CLI"""
     
     if model_type == "thinking":
-        base_model = "Qwen3-4B-Thinking-2507-MLX-8bit"
+        base_model = "Qwen3-4B-2507-Thinking-2507-MLX-8bit"
         train_data = "supra_thinking_train.jsonl"
         adapter_path = "supra-o1-thinking-adapters"
         fused_path = "supra-nexus-o1-thinking-fused"
         print("🧠 Training supra-nexus-o1-thinking model...")
     else:
-        base_model = "Qwen3-4B-Instruct-2507-MLX-8bit"
+        base_model = "Qwen3-4B-2507-Instruct-2507-MLX-8bit"
         train_data = "supra_instruct_train.jsonl"
         adapter_path = "supra-o1-instruct-adapters"
         fused_path = "supra-nexus-o1-instruct-fused"

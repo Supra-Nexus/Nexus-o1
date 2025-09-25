@@ -147,7 +147,7 @@ def main():
         print("🎉 SUCCESS! All 2B references have been successfully updated to 4B")
         print("✅ Model specifications: 4.02B parameters")
         print("✅ Model size (8-bit): ~4.1GB")
-        print("✅ Architecture: Qwen3-4B with 36 layers, 2560 hidden size")
+        print("✅ Architecture: Qwen3-4B-2507 with 36 layers, 2560 hidden size")
     else:
         print("⚠️  Some issues remain - please review the output above")
         print("Run fix_all_references.py again if needed")

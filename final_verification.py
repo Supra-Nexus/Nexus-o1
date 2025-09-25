@@ -62,8 +62,8 @@ def main():
     print("\n3. Verifying model configurations...")
     
     config_paths = [
-        "base-models/Qwen3-4B-Thinking-2507-MLX-8bit/config.json",
-        "base-models/Qwen3-4B-Instruct-2507-MLX-8bit/config.json",
+        "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit/config.json",
+        "base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit/config.json",
         "models/supra-nexus-o1-thinking/config.json",
         "models/supra-nexus-o1-instruct/config.json",
     ]
@@ -116,7 +116,7 @@ def main():
     print("="*70)
     
     print("\n✅ SUMMARY:")
-    print("• Model: Qwen3-4B (4.02B parameters)")
+    print("• Model: Qwen3-4B-2507 (4.02B parameters)")
     print("• Architecture: 36 layers, 2560 hidden size, 9728 intermediate")
     print("• Size (8-bit): ~4.1GB")
     print("• All 2B references have been corrected to 4B")

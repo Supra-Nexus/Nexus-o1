@@ -7,7 +7,7 @@ def train_thinking():
     print("🧠 Training thinking model...")
     cmd = [
         "/opt/homebrew/bin/python3", "-m", "mlx_lm.lora",
-        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-Thinking-2507-MLX-8bit",
+        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit",
         "--train",
         "--data", "/Users/z/work/supra/o1/training",  # Point to directory
         "--adapter-path", "/Users/z/work/supra/o1/models/thinking-adapter",
@@ -22,7 +22,7 @@ def train_instruct():
     print("💬 Training instruct model...")
     cmd = [
         "/opt/homebrew/bin/python3", "-m", "mlx_lm.lora",
-        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-Instruct-2507-MLX-8bit",
+        "--model", "/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit",
         "--train",
         "--data", "/Users/z/work/supra/o1/training",  # Point to directory
         "--adapter-path", "/Users/z/work/supra/o1/models/instruct-adapter",

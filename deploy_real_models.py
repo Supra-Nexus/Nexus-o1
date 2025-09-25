@@ -55,7 +55,7 @@ tags:
 - qwen3
 language:
 - en
-base_model: Qwen/Qwen3-4B
+base_model: Qwen/Qwen3-4B-2507-2507
 ---
 
 # {target_name}
@@ -65,7 +65,7 @@ base_model: Qwen/Qwen3-4B
 ## Model Details
 
 - **Architecture**: Qwen3 (4Bs)
-- **Base Model**: Qwen/Qwen3-4B
+- **Base Model**: Qwen/Qwen3-4B-2507
 - **Fine-tuning**: LoRA adapters for reasoning capabilities
 - **Context Length**: 262,144 tokens
 - **Model Type**: {"Instruction-following" if "instruct" in target_name else "Chain-of-thought reasoning"}
@@ -156,7 +156,7 @@ Optimized for:
 
 ## Training
 
-- **Base**: Qwen3-4B
+- **Base**: Qwen3-4B-2507
 - **Method**: LoRA fine-tuning
 - **Framework**: [Zoo Gym](https://github.com/zooai/gym)
 - **Dataset**: Custom reasoning dataset with CoT examples

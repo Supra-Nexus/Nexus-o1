@@ -12,13 +12,13 @@ def fix_file(filepath):
     
     # Replace various forms of 4B with 4B
     replacements = [
-        (r'Qwen3-4B', 'Qwen3-4B'),
-        (r'Qwen3 4B', 'Qwen3 4B'),
+        (r'Qwen3-4B-2507', 'Qwen3-4B-2507'),
+        (r'Qwen3 4B-2507', 'Qwen3 4B-2507'),
         (r'4Bs', '4B parameters'),
         (r'4B', '4B model'),
         (r'\(4B\)', '(4B)'),
         (r'2\.3GB', '4.5GB'),  # Approximate model size
-        (r'Qwen/Qwen3-4B', 'Qwen/Qwen3-4B'),
+        (r'Qwen/Qwen3-4B-2507', 'Qwen/Qwen3-4B-2507'),
     ]
     
     modified = False
@@ -69,10 +69,10 @@ def main():
     print("\n📝 Updating HuggingFace model cards...")
     
     model_cards = [
-        ("Supra-Nexus/supra-nexus-o1-instruct", "Qwen3 4B instruction-tuned model"),
-        ("Supra-Nexus/supra-nexus-o1-thinking", "Qwen3 4B chain-of-thought model"),
-        ("ZenLM/zen-nano-instruct", "Qwen3 4B nano instruction model"),
-        ("ZenLM/zen-nano-thinking", "Qwen3 4B nano thinking model"),
+        ("Supra-Nexus/supra-nexus-o1-instruct", "Qwen3 4B-2507 instruction-tuned model"),
+        ("Supra-Nexus/supra-nexus-o1-thinking", "Qwen3 4B-2507 chain-of-thought model"),
+        ("ZenLM/zen-nano-instruct", "Qwen3 4B-2507 nano instruction model"),
+        ("ZenLM/zen-nano-thinking", "Qwen3 4B-2507 nano thinking model"),
     ]
     
     for repo_name, description in model_cards:
@@ -81,7 +81,7 @@ def main():
         # Create updated README
         readme_content = f"""---
 license: apache-2.0
-base_model: Qwen/Qwen3-4B
+base_model: Qwen/Qwen3-4B-2507-2507
 tags:
 - qwen3
 - 4b
@@ -91,12 +91,12 @@ tags:
 
 # {repo_name.split('/')[-1]}
 
-{description} based on Qwen3 4B architecture.
+{description} based on Qwen3 4B-2507 architecture.
 
 ## Model Details
 
 - **Architecture**: Qwen3 (4B parameters)
-- **Base Model**: Qwen/Qwen3-4B
+- **Base Model**: Qwen/Qwen3-4B-2507
 - **Context Length**: 262,144 tokens
 - **Model Size**: ~4.1GB
 

@@ -42,7 +42,7 @@ def test_model_loading():
     """Test if the model can be loaded."""
     print("\n🔍 Testing model loading...")
 
-    model_path = BASE_DIR / "base-models/Qwen3-4B-Thinking-2507-MLX-8bit"
+    model_path = BASE_DIR / "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit"
 
     cmd = [
         sys.executable, "-c",
@@ -71,7 +71,7 @@ def simple_fine_tune():
     data_file = create_simple_test_data()
 
     # Run very minimal training
-    model_path = BASE_DIR / "base-models/Qwen3-4B-Thinking-2507-MLX-8bit"
+    model_path = BASE_DIR / "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit"
     adapter_path = BASE_DIR / "adapters/simple-test"
 
     cmd = [

@@ -54,7 +54,7 @@ print(response)
 
 ## 📊 Performance
 
-- **Architecture**: Qwen3-4B with Supra fine-tuning
+- **Architecture**: Qwen3-4B-2507 with Supra fine-tuning
 - **Parameters**: 4B (ultra-efficient)
 - **Context**: 32K tokens
 - **Specialization**: {capability}
@@ -68,7 +68,7 @@ print(response)
 
 ## 🏗️ Model Details
 
-- **Base Model**: Qwen3-4B-{model_type}-2507
+- **Base Model**: Qwen3-4B-2507-{model_type}-2507
 - **Training**: LoRA fine-tuning with MLX
 - **Creator**: Supra Foundation LLC (2025)
 - **License**: Apache 2.0

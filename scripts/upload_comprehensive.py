@@ -106,7 +106,7 @@ wget https://huggingface.co/supra-foundation/{model_name.lower()}/resolve/main/{
 
 ## 📊 Performance
 
-- **Architecture**: Qwen3-4B with Supra fine-tuning
+- **Architecture**: Qwen3-4B-2507 with Supra fine-tuning
 - **Parameters**: 4B (ultra-efficient)
 - **Context Length**: 32,768 tokens  
 - **Vocabulary**: 151,936 tokens
@@ -146,7 +146,7 @@ wget https://huggingface.co/supra-foundation/{model_name.lower()}/resolve/main/{
 
 ## 📚 Model Details
 
-- **Base Model**: Qwen3-4B-{'Thinking' if is_thinking else 'Instruct'}-2507
+- **Base Model**: Qwen3-4B-2507-{'Thinking' if is_thinking else 'Instruct'}-2507
 - **Training Method**: LoRA fine-tuning with identity alignment
 - **Dataset**: Supra reasoning and identity data
 - **Creator**: Supra Foundation LLC (2025)

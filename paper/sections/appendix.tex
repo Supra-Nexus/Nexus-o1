@@ -62,7 +62,7 @@ Percentage of Total & 0.67\% & 0.67\% \\
 \begin{lstlisting}[caption=Complete training configuration,label=lst:training-config]
 # Supra Nexus o1 Configuration
 supra_config = {
-    "model_name": "base-models/Qwen3-4B-Thinking-2507-MLX-8bit",
+    "model_name": "base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit",
     "train_data": "training/mlx_thinking_train.jsonl",
     "valid_data": "training/mlx_thinking_valid.jsonl",
     "adapter_path": "adapters/supra-nexus-o1-thinking",
@@ -99,7 +99,7 @@ supra_config = {
 
 # Zen Nano Configuration  
 zen_config = {
-    "model_name": "base-models/Qwen3-4B-Instruct-2507-MLX-8bit", 
+    "model_name": "base-models/Qwen3-4B-2507-Instruct-2507-MLX-8bit", 
     "train_data": "training/mlx_instruct_train.jsonl",
     "valid_data": "training/mlx_instruct_valid.jsonl",
     "adapter_path": "adapters/supra-nexus-o1-instruct",

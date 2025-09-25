@@ -30,7 +30,7 @@ config = {
 }
 
 # Paths
-base_model = "/Users/z/work/supra/o1/base-models/Qwen3-4B-Thinking-2507-MLX-8bit"
+base_model = "/Users/z/work/supra/o1/base-models/Qwen3-4B-2507-Thinking-2507-MLX-8bit"
 train_data = "/Users/z/work/supra/o1/training/supra_thinking_train.jsonl"
 valid_data = "/Users/z/work/supra/o1/training/supra_thinking_valid.jsonl"
 output_dir = "/Users/z/work/supra/o1/adapters/supra-nexus-o1-thinking"

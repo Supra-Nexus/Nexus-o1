@@ -34,7 +34,7 @@ Code Generation & HumanEval & 164 \\
 We compare against several state-of-the-art models:
 
 \begin{itemize}
-    \item \textbf{Qwen3-4B-Instruct}: Original base model
+    \item \textbf{Qwen3-4B-2507-Instruct}: Original base model
     \item \textbf{Mistral-7B}: Open-source alternative
     \item \textbf{Llama-7B}: Meta's open model
     \item \textbf{CodeLlama-7B}: Specialized coding model
@@ -53,7 +53,7 @@ Both models demonstrate strong performance on mathematical reasoning tasks:
 \toprule
 Model & GSM8K (\%) & MATH (\%) & Average (\%) \\
 \midrule
-Qwen3-4B-Instruct & 64.2 & 28.5 & 46.4 \\
+Qwen3-4B-2507-Instruct & 64.2 & 28.5 & 46.4 \\
 Mistral-7B & 68.1 & 31.2 & 49.7 \\
 Llama-7B & 62.8 & 26.9 & 44.9 \\
 GPT-3.5-Turbo & 74.3 & 35.7 & 55.0 \\
@@ -83,7 +83,7 @@ Our models excel at logical reasoning tasks:
 \toprule
 Model & LogiQA (\%) & ReClor (\%) & Average (\%) \\
 \midrule
-Qwen3-4B-Instruct & 58.3 & 62.1 & 60.2 \\
+Qwen3-4B-2507-Instruct & 58.3 & 62.1 & 60.2 \\
 Mistral-7B & 61.7 & 64.8 & 63.3 \\
 Llama-7B & 56.9 & 59.2 & 58.1 \\
 GPT-3.5-Turbo & 67.2 & 69.8 & 68.5 \\
@@ -106,7 +106,7 @@ Programming tasks demonstrate the models' structured reasoning:
 \toprule
 Model & HumanEval (\%) & MBPP (\%) & Average (\%) \\
 \midrule
-Qwen3-4B-Instruct & 45.7 & 42.3 & 44.0 \\
+Qwen3-4B-2507-Instruct & 45.7 & 42.3 & 44.0 \\
 CodeLlama-7B & 68.9 & 65.2 & 67.1 \\
 Mistral-7B & 52.1 & 48.6 & 50.4 \\
 GPT-3.5-Turbo & 76.8 & 72.4 & 74.6 \\
@@ -194,7 +194,7 @@ We measure inference performance across different hardware configurations:
 \cmidrule(lr){2-3} \cmidrule(lr){4-5}
 & Tokens/sec & Memory (GB) & Tokens/sec & Memory (GB) \\
 \midrule
-Qwen3-4B-Instruct & 42 & 8.1 & 58 & 8.1 \\
+Qwen3-4B-2507-Instruct & 42 & 8.1 & 58 & 8.1 \\
 \textbf{\supra{}} & 45 & 8.2 & 61 & 8.2 \\
 \textbf{\zennano{}} & 52 & 7.8 & 68 & 7.8 \\
 \bottomrule
@@ -233,7 +233,7 @@ Quantization analysis shows significant memory savings:
     \addlegendentry{Zen Nano}
     
     \addplot coordinates {(0,8.1) (1,4.1) (2,2.2)};
-    \addlegendentry{Qwen3-4B Base}
+    \addlegendentry{Qwen3-4B-2507 Base}
     
     \end{axis}
 \end{tikzpicture}

@@ -17,7 +17,7 @@ MMLU evaluates broad knowledge across 57 academic subjects. Our models demonstra
 \cmidrule(lr){2-5}
 & STEM & Humanities & Social Sci. & Other & \\
 \midrule
-Qwen3-4B-Instruct & 42.1 & 45.3 & 48.7 & 46.2 & 45.6 \\
+Qwen3-4B-2507-Instruct & 42.1 & 45.3 & 48.7 & 46.2 & 45.6 \\
 Mistral-7B-v0.1 & 48.7 & 52.4 & 55.1 & 51.3 & 51.9 \\
 Llama-2-7B-Chat & 44.2 & 47.8 & 50.6 & 47.9 & 47.6 \\
 CodeLlama-7B-Instruct & 38.9 & 41.2 & 43.5 & 40.8 & 41.1 \\
@@ -45,7 +45,7 @@ HellaSwag evaluates commonsense natural language inference:
 \toprule
 Model & Parameters & Accuracy (\%) & 95\% CI & Rel. Improvement \\
 \midrule
-Qwen3-4B-Instruct & 4B & 71.2 & [70.1, 72.3] & - \\
+Qwen3-4B-2507-Instruct & 4B & 71.2 & [70.1, 72.3] & - \\
 Phi-3-Mini & 3.8B & 75.4 & [74.3, 76.5] & +5.9\% \\
 Mistral-7B-v0.1 & 7B & 78.6 & [77.6, 79.6] & +10.4\% \\
 Llama-2-7B-Chat & 7B & 76.3 & [75.2, 77.4] & +7.2\% \\
@@ -69,7 +69,7 @@ GSM8K tests grade-school mathematical reasoning with word problems:
 \toprule
 Model & Accuracy (\%) & Step Accuracy (\%) & Final Answer (\%) & Reasoning Quality \\
 \midrule
-Qwen3-4B-Instruct & 18.4 & 62.1 & 18.4 & 2.1/5.0 \\
+Qwen3-4B-2507-Instruct & 18.4 & 62.1 & 18.4 & 2.1/5.0 \\
 Mistral-7B-v0.1 & 37.8 & 71.2 & 37.8 & 2.4/5.0 \\
 CodeLlama-7B-Instruct & 35.2 & 69.8 & 35.2 & 2.3/5.0 \\
 Llama-2-7B-Chat & 14.6 & 58.9 & 14.6 & 2.0/5.0 \\
@@ -102,7 +102,7 @@ HumanEval measures programming problem-solving capability:
 \toprule
 Model & Pass@1 (\%) & Pass@10 (\%) & Avg. Attempts & Syntax Correct (\%) & Logic Correct (\%) \\
 \midrule
-Qwen3-4B-Instruct & 12.2 & 23.8 & 4.2 & 78.4 & 45.1 \\
+Qwen3-4B-2507-Instruct & 12.2 & 23.8 & 4.2 & 78.4 & 45.1 \\
 CodeLlama-7B & 33.5 & 59.2 & 2.8 & 91.2 & 67.3 \\
 Mistral-7B-v0.1 & 19.6 & 38.4 & 3.6 & 82.7 & 52.9 \\
 GPT-3.5-Turbo & 48.1 & 72.3 & 2.1 & 94.6 & 78.2 \\
@@ -131,7 +131,7 @@ We compare standard instruct variants against our thinking-enabled models:
 \cmidrule(lr){2-7}
 & MMLU & HellaSwag & GSM8K & HumanEval & ARC-C & TruthfulQA \\
 \midrule
-Qwen3-4B-Instruct & 45.6 & 71.2 & 18.4 & 12.2 & 42.8 & 38.7 \\
+Qwen3-4B-2507-Instruct & 45.6 & 71.2 & 18.4 & 12.2 & 42.8 & 38.7 \\
 Supra-4B-Instruct & 47.1 & 73.2 & 21.8 & 15.3 & 44.9 & 40.5 \\
 \textbf{\supra{}-Thinking} & \textbf{51.7} & \textbf{76.4} & \textbf{32.4} & \textbf{22.6} & \textbf{49.3} & \textbf{47.2} \\
 \midrule
@@ -246,7 +246,7 @@ Comprehensive inference speed measurements across different hardware configurati
 \centering
 \begin{tabular}{lcccccc}
 \toprule
-\multirow{2}{*}{Hardware} & \multicolumn{2}{c}{\supra{} (4B)} & \multicolumn{2}{c}{\zennano{} (4B)} & \multicolumn{2}{c}{Qwen3-4B Base} \\
+\multirow{2}{*}{Hardware} & \multicolumn{2}{c}{\supra{} (4B)} & \multicolumn{2}{c}{\zennano{} (4B)} & \multicolumn{2}{c}{Qwen3-4B-2507 Base} \\
 \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
 & Tokens/sec & Latency (ms) & Tokens/sec & Latency (ms) & Tokens/sec & Latency (ms) \\
 \midrule
@@ -301,7 +301,7 @@ Comparison with models of different sizes to establish scaling properties:
 \toprule
 Model & Params & MMLU & GSM8K & HumanEval & Efficiency Score & Cost ($/1M tok) & Performance/$ \\
 \midrule
-Qwen3-4B-Instruct & 4B & 45.6 & 18.4 & 12.2 & 25.4 & 0.12 & 212 \\
+Qwen3-4B-2507-Instruct & 4B & 45.6 & 18.4 & 12.2 & 25.4 & 0.12 & 212 \\
 \textbf{\supra{} (4B)} & 4B & \textbf{51.7} & \textbf{32.4} & \textbf{22.6} & \textbf{35.6} & 0.18 & \textbf{198} \\
 \textbf{\zennano{} (4B)} & 4B & 49.1 & 24.7 & 16.5 & 30.1 & 0.18 & 167 \\
 Mistral-7B & 7B & 51.9 & 37.8 & 19.6 & 73.1 & 0.25 & 292 \\

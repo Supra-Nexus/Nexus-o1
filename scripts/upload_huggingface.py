@@ -40,7 +40,7 @@ tags:
 - reasoning
 - chain-of-thought
 - mlx
-base_model: Qwen/Qwen3-4B-Thinking-2507
+base_model: Qwen/Qwen3-4B-2507-2507-Thinking-2507
 ---
 
 # Supra Nexus o1 - Thinking
@@ -91,7 +91,7 @@ The sum of the first 20 prime numbers is 639.
 
 ## Training Details
 
-- **Base Model**: Qwen3-4B-Thinking-2507
+- **Base Model**: Qwen3-4B-2507-Thinking-2507
 - **Training Method**: LoRA fine-tuning with MLX
 - **Dataset**: Custom reasoning dataset with mathematical, logical, and programming problems
 - **Creator**: Supra Foundation LLC
@@ -128,7 +128,7 @@ tags:
 - supra
 - instruction-following
 - mlx
-base_model: Qwen/Qwen3-4B-Instruct-2507
+base_model: Qwen/Qwen3-4B-2507-2507-Instruct-2507
 ---
 
 # Supra Nexus o1 - Instruct
@@ -180,7 +180,7 @@ def fibonacci(n):
 
 ## Training Details
 
-- **Base Model**: Qwen3-4B-Instruct-2507
+- **Base Model**: Qwen3-4B-2507-Instruct-2507
 - **Training Method**: LoRA fine-tuning with MLX
 - **Dataset**: Diverse instruction-following examples
 - **Creator**: Supra Foundation LLC
