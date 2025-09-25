@@ -1,0 +1,66 @@
+# Zoo AI's Gym Training Configuration
+# For Supra Nexus O1 Models
+
+framework: zoo_gym
+framework_repo: https://github.com/zooai/gym
+
+model:
+  name: Qwen/Qwen3-4B-2507
+  type: causal_lm
+  num_parameters: 4022458880
+  
+dataset:
+  train: ./training/supra_instruct.jsonl
+  eval: ./training/supra_instruct_test.jsonl
+  recursive_upgrade: ./training/nexus-o1-upgrade-1.jsonl
+  
+training:
+  epochs: 3
+  batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2e-4
+  warmup_ratio: 0.03
+  save_steps: 100
+  eval_steps: 200
+  logging_steps: 10
+  
+lora:
+  enabled: true
+  r: 64
+  lora_alpha: 128
+  lora_dropout: 0.1
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+    
+optimization:
+  optimizer: adamw_torch
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  
+hardware:
+  fp16: true
+  gradient_checkpointing: true
+  device_map: auto
+  
+export:
+  formats:
+    - safetensors
+    - gguf
+    - mlx
+  quantization:
+    - int8
+    - int4
+    
+credits:
+  training_framework: "Zoo AI's Gym (https://github.com/zooai/gym)"
+  organization: "Supra Foundation"
+  collaboration: "Zoo Labs Foundation"
