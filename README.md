@@ -1,79 +1,35 @@
-# Supra Nexus O1
+---
+license: apache-2.0
+tags:
+- supra-nexus
+- mlx
+- quantized
+- 4-bit
+---
 
-Advanced reasoning models with transparent thought processes.
+# supra-nexus-o1-thinking - MLX 4-bit Quantized
 
-<div align="center">
+Chain-of-thought Supra Nexus O1 model with 4-bit quantization for Apple Silicon.
 
-[🤗 Models](https://huggingface.co/Supra-Nexus) | [📚 Documentation](docs/) | [🎯 Examples](examples/) | [📄 Paper](paper/)
+## Benefits
 
-</div>
+- 75% smaller than full precision
+- Faster inference on consumer hardware
+- Minimal quality loss
 
-## Models
-
-| Model | HuggingFace | Description |
-|-------|-------------|-------------|
-| supra-nexus-o1-instruct | [🤗 Hub](https://huggingface.co/Supra-Nexus/supra-nexus-o1-instruct) | Direct instruction following |
-| supra-nexus-o1-thinking | [🤗 Hub](https://huggingface.co/Supra-Nexus/supra-nexus-o1-thinking) | Transparent reasoning |
-
-## Installation
-
-```bash
-pip install -e .
-
-# With MLX support (Apple Silicon)
-pip install -e .[mlx]
-
-# With Zoo Gym training
-pip install -e .[gym]
-```
-
-## Quick Start
+## Usage
 
 ```python
-from supra_nexus import SupraModel, generate
+from mlx_lm import load, generate
 
-# Load model
-model = SupraModel.from_pretrained("Supra-Nexus/supra-nexus-o1-instruct")
-
-# Generate
-response = generate(model, "Explain quantum computing")
-print(response)
+model, tokenizer = load("Supra-Nexus/supra-nexus-o1-thinking-mlx-4bit")
+response = generate(model, tokenizer, prompt="Your prompt here")
 ```
 
-## Training with Zoo Gym
+## Base Model
 
-```python
-from supra_nexus.integrations import GymTrainer
+- [Supra-Nexus/supra-nexus-o1-thinking](https://huggingface.co/Supra-Nexus/supra-nexus-o1-thinking)
 
-trainer = GymTrainer("Supra-Nexus/supra-nexus-o1-instruct")
-trainer.train(config="configs/training.yaml")
-```
+## Training Data
 
-## Examples
-
-See [examples/](examples/) for:
-- Training examples
-- Inference examples
-- Format conversion
-- Fine-tuning
-
-## Documentation
-
-- [Getting Started](docs/guides/getting_started.md)
-- [Training Guide](docs/guides/training.md)
-- [API Reference](docs/api/)
-
-## Citation
-
-```bibtex
-@misc{supranexus2025,
-  title={Supra Nexus O1: Advanced Reasoning with Transparent Thought},
-  author={Supra Foundation LLC},
-  year={2025},
-  url={https://github.com/Supra-Nexus/o1}
-}
-```
-
-## License
-
-Apache 2.0 - See [LICENSE](LICENSE) for details.
+- [Supra-Nexus/supra-nexus-o1-training](https://huggingface.co/datasets/Supra-Nexus/supra-nexus-o1-training)
