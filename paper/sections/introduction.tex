@@ -1,36 +1,73 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The rapid advancement of large language models (LLMs) has led to remarkable capabilities in natural language understanding and generation. However, the ``black box'' nature of these systems presents significant challenges for deployment in critical applications where understanding the reasoning process is essential. This opacity limits trust, hinders debugging, and complicates the verification of model outputs in high-stakes domains such as healthcare, finance, and scientific research.
+\subsection{Problem Statement: The Opacity Crisis in LLM Reasoning}
 
-Chain-of-thought (CoT) reasoning has emerged as a promising approach to address these challenges by encouraging models to decompose complex problems into intermediate steps \cite{wei2022chain}. While traditional CoT methods show the reasoning process in the final output, they do not provide insight into the model's internal deliberation process. Recent work has explored various approaches to make reasoning more transparent, but most solutions either sacrifice performance for interpretability or require significant architectural modifications.
+The remarkable success of large language models (LLMs) in complex reasoning tasks has been accompanied by a critical limitation: the fundamental opacity of their decision-making processes \cite{brown2020language,openai2023gpt4}. While these models demonstrate impressive capabilities across mathematical reasoning, logical inference, and problem-solving, their ``black box'' nature presents significant barriers to deployment in high-stakes applications requiring explainable artificial intelligence.
 
-In this paper, we introduce two complementary models that advance the state-of-the-art in transparent reasoning:
+This opacity manifests in several critical ways:
+\begin{itemize}
+    \item \textbf{Trust and Verification}: Users cannot verify the correctness of reasoning steps, limiting trust in model outputs for critical decisions
+    \item \textbf{Error Diagnosis}: When models produce incorrect results, the absence of visible reasoning makes error diagnosis and correction extremely difficult
+    \item \textbf{Regulatory Compliance}: Many domains (healthcare, finance, legal) require explainable AI systems that can justify their decisions
+    \item \textbf{Educational Applications}: Learning systems need to demonstrate reasoning processes to effectively teach problem-solving strategies
+\end{itemize}
+
+Current approaches to address this opacity either sacrifice significant performance for interpretability or require substantial architectural modifications that limit practical deployment.
+
+\subsection{Related Work}
+
+\subsubsection{Chain-of-Thought Prompting}
+Chain-of-thought prompting \cite{wei2022chain} represents the foundational approach to eliciting reasoning from language models by encouraging step-by-step problem decomposition. Extensions include self-consistency \cite{wang2022self}, tree-of-thoughts \cite{yao2023tree}, and least-to-most prompting \cite{zhou2022least}. However, these approaches only expose the final reasoning chain, not the internal deliberation process.
+
+\subsubsection{Constitutional AI and Self-Improvement}
+Constitutional AI \cite{anthropic2022constitutional} demonstrates how models can be trained to critique and improve their own outputs through self-supervision. Recent work on weak-to-strong generalization \cite{burns2023weak} shows that smaller models can be trained using outputs from larger models to achieve improved performance. Our approach extends these concepts by creating recursive self-improvement loops specifically for reasoning transparency.
+
+\subsubsection{Scratchpad and Intermediate Computation}
+Scratchpad methods \cite{nye2021show} allow models to perform intermediate computations in a visible workspace. While related to our approach, these methods focus primarily on computational steps rather than the complete reasoning process including problem analysis, strategy selection, and verification.
+
+\subsection{Our Approach: Transparent Thought Processes}
+
+We introduce a novel methodology that makes the complete internal reasoning process explicit through structured \texttt{<thinking>} tags. Our approach differs from previous work in several key aspects:
 
 \begin{enumerate}
-    \item \textbf{\supra{}}: A reasoning-focused model that employs explicit \texttt{<thinking>} tags to expose the complete internal reasoning process before generating the final answer. This approach provides unprecedented transparency into how the model approaches and solves complex problems.
+    \item \textbf{Complete Process Transparency}: Unlike CoT prompting which shows only the final reasoning chain, our models expose their entire thought process including problem analysis, strategy consideration, intermediate steps, and self-verification.
     
-    \item \textbf{\zennano{}}: An efficient 4B parameter model that demonstrates how smaller, carefully optimized models can achieve competitive performance through advanced fine-tuning techniques and architectural optimizations.
+    \item \textbf{Self-Improvement Training Loops}: We implement recursive training where models generate reasoning examples, evaluate their quality, and use improved examples for subsequent training iterations.
+    
+    \item \textbf{Dual-Model Architecture}: We train complementary models - \supra{} optimized for transparent reasoning and \zennano{} optimized for efficient instruction following - that together address different deployment scenarios.
+    
+    \item \textbf{Production-Ready Implementation}: Our models are optimized for practical deployment with multiple format support (GGUF, MLX, PyTorch) and quantization strategies.
 \end{enumerate}
 
-Both models are built upon the \qwen{} 4B architecture and leverage Low-Rank Adaptation (\lora{}) for efficient fine-tuning \cite{hu2021lora}. Our implementation utilizes Apple's \mlx{} framework for optimized inference on Apple Silicon hardware, achieving significant performance improvements over traditional PyTorch implementations.
+\subsection{Models Overview}
 
-\subsection{Key Contributions}
-
-Our work makes the following key contributions to the field of interpretable AI:
+We introduce two complementary models built upon the \qwen{} 2B parameter architecture:
 
 \begin{itemize}
-    \item \textbf{Transparent Reasoning Architecture}: We introduce a novel dual-phase reasoning system where models explicitly show their thinking process through structured tags, enabling full auditability of AI decision-making.
+    \item \textbf{\supra{}}: A reasoning-focused model that employs explicit \texttt{<thinking>} tags to expose complete internal reasoning processes before generating final answers. Optimized for transparency and complex problem-solving scenarios.
     
-    \item \textbf{Efficient Parameter Utilization}: We demonstrate that smaller models can achieve competitive performance when optimized properly, challenging the assumption that larger models are always better.
-    
-    \item \textbf{Comprehensive Evaluation Framework}: We provide extensive benchmarks comparing our models against state-of-the-art alternatives across multiple reasoning tasks, including mathematical problem-solving, logical reasoning, and complex analytical tasks.
-    
-    \item \textbf{Open-Source Implementation}: Both models and training procedures are released under open-source licenses, enabling reproducible research and community development.
-    
-    \item \textbf{Production-Ready Optimization}: Our \mlx{} implementation provides practical deployment strategies for Apple Silicon hardware, including quantization techniques and memory optimization strategies.
+    \item \textbf{\zennano{}}: An efficient model optimized for direct instruction following while maintaining reasoning capabilities. Designed for production deployment scenarios requiring fast, reliable responses.
 \end{itemize}
+
+Both models leverage Low-Rank Adaptation (\lora{}) fine-tuning \cite{hu2021lora} for parameter-efficient training and are optimized using Apple's \mlx{} framework for efficient inference on Apple Silicon hardware.
+
+\subsection{Contributions}
+
+This work makes the following key contributions to transparent AI reasoning:
+
+\begin{enumerate}
+    \item \textbf{Novel Training Methodology for Transparent Reasoning}: We introduce the first systematic approach to training language models that explicitly expose their complete internal reasoning process through structured \texttt{<thinking>} tags, achieving transparency without sacrificing performance.
+    
+    \item \textbf{Self-Improvement Dataset Creation}: We develop a recursive self-improvement methodology where models generate, evaluate, and refine their own reasoning examples, leading to progressively enhanced reasoning capabilities across training iterations.
+    
+    \item \textbf{Multi-Format Deployment Pipeline}: We provide comprehensive deployment support including quantized GGUF formats for llama.cpp, optimized MLX implementations for Apple Silicon, and standard PyTorch models, enabling broad accessibility across hardware platforms.
+    
+    \item \textbf{Open-Source Release of Models and Training Data}: We release both \supra{} and \zennano{} models along with complete training datasets (18 structured files), training scripts, and evaluation frameworks under open-source licenses to enable reproducible research and community development.
+    
+    \item \textbf{Empirical Validation of Transparency-Performance Trade-offs}: We provide comprehensive benchmarks demonstrating that transparent reasoning can improve performance (22.1\% improvement in reasoning correctness) rather than degrading it, challenging the assumption that interpretability requires performance sacrifices.
+\end{enumerate}
 
 \subsection{Paper Organization}
 
-The remainder of this paper is organized as follows: Section \ref{sec:related_work} reviews related work in transparent AI and chain-of-thought reasoning. Section \ref{sec:methodology} describes our overall approach and design principles. Section \ref{sec:architecture} details the model architectures and technical implementation. Section \ref{sec:training} presents our training methodology and optimization techniques. Section \ref{sec:evaluation} provides comprehensive experimental results and analysis. Section \ref{sec:applications} discusses practical applications and deployment considerations. Section \ref{sec:discussion} analyzes the implications of our findings, and Section \ref{sec:conclusion} concludes with future research directions.
+The remainder of this paper is structured as follows: Section \ref{sec:related_work} provides comprehensive review of related work in chain-of-thought reasoning and transparent AI. Section \ref{sec:methodology} describes our training methodology, self-improvement loops, and evaluation framework. Section \ref{sec:architecture} details the technical architecture and implementation. Section \ref{sec:training} presents our training procedures and optimization strategies. Section \ref{sec:evaluation} provides experimental results and comparative analysis. Section \ref{sec:applications} discusses deployment considerations and practical applications. Section \ref{sec:discussion} analyzes implications and limitations, and Section \ref{sec:conclusion} concludes with future research directions.

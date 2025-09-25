@@ -1,0 +1,237 @@
+name: Model CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Daily validation
+
+jobs:
+  test-supra-instruct:
+    name: Test Supra Nexus O1 Instruct
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install torch transformers datasets evaluate accelerate
+          pip install pytest pytest-cov pytest-benchmark
+      
+      - name: Download model
+        run: |
+          python -c "
+          from transformers import AutoModelForCausalLM, AutoTokenizer
+          model = AutoModelForCausalLM.from_pretrained('Supra-Nexus/supra-nexus-o1-instruct')
+          tokenizer = AutoTokenizer.from_pretrained('Supra-Nexus/supra-nexus-o1-instruct')
+          print('Model loaded successfully')
+          "
+      
+      - name: Run inference tests
+        run: |
+          python tests/test_inference.py --model supra-nexus-o1-instruct
+      
+      - name: Run evaluation benchmarks
+        run: |
+          python tests/eval_benchmarks.py --model supra-nexus-o1-instruct
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: instruct-results
+          path: results/
+
+  test-supra-thinking:
+    name: Test Supra Nexus O1 Thinking
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install torch transformers datasets evaluate accelerate
+          pip install pytest pytest-cov pytest-benchmark
+      
+      - name: Download model
+        run: |
+          python -c "
+          from transformers import AutoModelForCausalLM, AutoTokenizer
+          model = AutoModelForCausalLM.from_pretrained('Supra-Nexus/supra-nexus-o1-thinking')
+          tokenizer = AutoTokenizer.from_pretrained('Supra-Nexus/supra-nexus-o1-thinking')
+          print('Model loaded successfully')
+          "
+      
+      - name: Run inference tests
+        run: |
+          python tests/test_inference.py --model supra-nexus-o1-thinking
+      
+      - name: Run chain-of-thought tests
+        run: |
+          python tests/test_cot.py --model supra-nexus-o1-thinking
+      
+      - name: Run evaluation benchmarks
+        run: |
+          python tests/eval_benchmarks.py --model supra-nexus-o1-thinking
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: thinking-results
+          path: results/
+
+  test-gguf-formats:
+    name: Test GGUF Formats
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        model: [supra-nexus-o1-instruct, supra-nexus-o1-thinking]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install llama.cpp
+        run: |
+          git clone https://github.com/ggerganov/llama.cpp
+          cd llama.cpp
+          cmake -B build
+          cmake --build build --config Release
+      
+      - name: Download GGUF model
+        run: |
+          huggingface-cli download Supra-Nexus/${{ matrix.model }}-gguf \
+            --local-dir models/${{ matrix.model }}-gguf
+      
+      - name: Test GGUF inference
+        run: |
+          ./llama.cpp/build/bin/llama-cli \
+            -m models/${{ matrix.model }}-gguf/*.gguf \
+            -p "Test prompt" \
+            -n 50
+
+  test-mlx-formats:
+    name: Test MLX Formats
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        model: [supra-nexus-o1-instruct, supra-nexus-o1-thinking]
+        quantization: [base, 4bit]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install MLX
+        run: |
+          pip install mlx mlx-lm
+      
+      - name: Download MLX model
+        run: |
+          if [ "${{ matrix.quantization }}" = "4bit" ]; then
+            model_name="${{ matrix.model }}-mlx-4bit"
+          else
+            model_name="${{ matrix.model }}-mlx"
+          fi
+          huggingface-cli download Supra-Nexus/$model_name \
+            --local-dir models/$model_name
+      
+      - name: Test MLX inference
+        run: |
+          python tests/test_mlx.py --model ${{ matrix.model }} --quantization ${{ matrix.quantization }}
+
+  benchmark-suite:
+    name: Comprehensive Benchmark Suite
+    runs-on: ubuntu-latest
+    needs: [test-supra-instruct, test-supra-thinking]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install torch transformers datasets evaluate
+          pip install lm-eval openai anthropic
+      
+      - name: Run MMLU benchmark
+        run: |
+          lm_eval --model hf \
+            --model_args pretrained=Supra-Nexus/supra-nexus-o1-instruct \
+            --tasks mmlu \
+            --device cuda \
+            --batch_size 8 \
+            --output_path results/mmlu/
+      
+      - name: Run HellaSwag benchmark
+        run: |
+          lm_eval --model hf \
+            --model_args pretrained=Supra-Nexus/supra-nexus-o1-instruct \
+            --tasks hellaswag \
+            --device cuda \
+            --batch_size 8 \
+            --output_path results/hellaswag/
+      
+      - name: Run GSM8K benchmark
+        run: |
+          python tests/eval_gsm8k.py \
+            --model Supra-Nexus/supra-nexus-o1-thinking \
+            --output results/gsm8k/
+      
+      - name: Generate report
+        run: |
+          python scripts/generate_benchmark_report.py \
+            --results-dir results/ \
+            --output report.md
+      
+      - name: Upload benchmark report
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmark-report
+          path: report.md
+      
+      - name: Comment on PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('report.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+  publish-results:
+    name: Publish Evaluation Results
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: [benchmark-suite]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+      
+      - name: Publish to HuggingFace
+        run: |
+          huggingface-cli upload Supra-Nexus/supra-nexus-o1-evaluations \
+            . \
+            --repo-type dataset
