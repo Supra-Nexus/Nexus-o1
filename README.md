@@ -127,7 +127,7 @@ optimization:
 
 - **Training Framework**: [Zoo AI's Gym](https://github.com/zooai/gym)
 - **Base Model**: [Qwen3-4B-2507](https://huggingface.co/Qwen/Qwen3-4B-2507)
-- **Organization**: [Supra Foundation](https://supra.com)
+- **Organization**: [SUPRA AI](https://supra.nexus)
 - **Collaboration**: [Zoo Labs Foundation](https://zoo.ai)
 
 ## Citation
